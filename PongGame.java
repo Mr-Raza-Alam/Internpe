@@ -10,9 +10,9 @@ import java.awt.event.ActionListener;    // Interface that listens to Timer even
 import java.awt.event.ActionEvent;       // Object carrying Timer event info — passed as parameter into actionPerformed(ActionEvent e)
 import java.awt.event.KeyListener;       // Interface that detects keyboard events — forces override of keyPressed(), keyReleased() and keyTyped()
 import java.awt.event.KeyEvent;          // Object carrying key press info — use e.getKeyCode() and KeyEvent.VK_* constants to identify which key was pressed
-import java.util.Scanner;                // Takes player name input from terminal before game window opensimport javax.swing.JFrame;  // Creates the game window on screen
+import java.util.Scanner;                // Takes player name input from terminal before game window opens
 
-// ---- GAME PANEL class that create a blueprint for creating a canvas that will help to draw on the picture ----
+// ---- GAME PANEL class that create a blueprint for creating a canvas that will help to draw the picture/game element on the drawing pagej i.e. panel ----
 class GamePanel extends JPanel implements ActionListener, KeyListener {
 
     // ---- SCREEN ----
@@ -233,7 +233,7 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         // center dashed line
-        g.setColor(Color.GRAY);
+        g.setColor(Color.blue);
         for (int i = 0; i < HEIGHT; i += 30) {
             g.fillRect(WIDTH / 2 - 2, i, 4, 15);
         }
@@ -335,9 +335,9 @@ public class PongGame{
         System.out.println("\n========================================");
         System.out.println("\t--Welcome to Pong Game!--");
         System.out.println("========================================\n");
-        System.out.print("Enter Player 1 name (LEFT  | Controls: W/S) : ");
+        System.out.print("Enter 1st player's name(LEFT  | Controls: W/S) : ");
         String p1N = read.nextLine().trim();
-        System.out.print("Enter Player 2 name (RIGHT | Controls: \u2191/\u2193) : ");
+        System.out.print("Enter 2nd player's name(RIGHT | Controls: \u2191/\u2193) : ");
         String p2N = read.nextLine().trim();
         read.close();
 
