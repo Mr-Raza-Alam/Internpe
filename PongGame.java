@@ -328,7 +328,7 @@ class GamePanel extends JPanel implements ActionListener, KeyListener {
 }
 
 // -- MAIN CLASS --
-public class PongGame  {
+public class PongGame{
     public static void main(String[] args) {
 
         Scanner read = new Scanner(System.in);
@@ -337,7 +337,7 @@ public class PongGame  {
         System.out.println("========================================\n");
         System.out.print("Enter Player 1 name (LEFT  | Controls: W/S) : ");
         String p1N = read.nextLine().trim();
-        System.out.print("Enter Player 2 name (RIGHT | Controls: \\u2191/\\u2193) : ");
+        System.out.print("Enter Player 2 name (RIGHT | Controls: \u2191/\u2193) : ");
         String p2N = read.nextLine().trim();
         read.close();
 
