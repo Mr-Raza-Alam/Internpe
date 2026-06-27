@@ -1,14 +1,22 @@
 # 🚀 Java Mini Projects Collection (InternPe)
 
-Welcome to the **Java Mini Projects Collection**! This repository contains a variety of beginner-to-intermediate level Java applications and games. It serves as a great learning resource for mastering **Core Java** and **GUI Development** using Java Swing and AWT.
+Welcome to the **Java Mini Projects Collection**! This repository serves as a progressive portfolio of tasks and mini-projects developed during my **6-week Java Programming Internship at InternPe** (started June 8th). 
 
-Whether you are looking to understand basic console applications, game loops, or event handling in Java, this repository has something for you!
+It contains a variety of beginner-to-intermediate level Java applications and games, and will be updated continuously as the internship progresses. It serves as a great learning resource for mastering **Core Java** and **GUI Development** using Java Swing and AWT.
 
 ---
 
 ## 📂 Projects Included
 
-### 1. 🏓 Pong Game (`PongGame.java` & `PongGame2.java`)
+### 1. ❌⭕ Tic Tac Toe Game (`TicTacToe.java`)
+A 2-player graphical Tic-Tac-Toe game built with Java Swing.
+- **Features:**
+  - Player vs Player mode with customizable names.
+  - Interactive 3x3 grid with mouse click detection.
+  - Automatic win/draw detection with green highlighted winning combinations.
+  - "Restart" button for continuous gameplay.
+
+### 2. 🏓 Pong Game (`PongGame.java` & `PongGame2.java`)
 A fully functional 2-player GUI Pong game built with Java Swing and AWT.
 - **Features:** 
   - Player vs Player mode with custom names.
@@ -19,21 +27,21 @@ A fully functional 2-player GUI Pong game built with Java Swing and AWT.
   - **Player 2 (Right):** `↑` (Up), `↓` (Down)
   - **Restart:** `R` | **Quit:** `ESC`
 
-### 2. 🔢 Number Guessing Game (`NumGuess.java`)
+### 3. 🔢 Number Guessing Game (`NumGuess.java`)
 A fun, console-based game where the computer generates a random number between 1 and 100, and you have to guess it!
 - **Features:**
   - Provides hints ("near to the target" or "far away from the target") to help you guess.
   - Tracks the number of attempts taken to win.
   - Option to replay the game continuously.
 
-### 3. ✂️ Stone Paper Scissor (`SP_SC.java` & `St_Pa_Sc.java`)
+### 4. ✂️ Stone Paper Scissor (`SP_SC.java` & `St_Pa_Sc.java`)
 A classic 2-player console game of Rock-Paper-Scissors (Stone-Paper-Scissor).
 - **Features:**
   - Takes inputs from two players (hidden via spacing).
   - Suspenseful 3-second evaluation timer.
   - Complete winning logic and tie-breakers.
 
-### 4. 🛠️ Java Swing & GUI Learning Examples
+### 5. 🛠️ Java Swing & GUI Learning Examples
 If you are new to Java GUI development, these smaller examples break down the concepts used to build the full Pong Game:
 - **`MyFirstWindow.java`**: Learn how to create a basic blank window (`JFrame`).
 - **`MyDrawing.java`**: Learn how to draw shapes (rectangles, ovals) and text using `Graphics` and `JPanel`.
