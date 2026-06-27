@@ -7,28 +7,57 @@ import java.util.List;
 public class TicTacToe {
 
     public static void main(String[] args) {
-        // Ask for player names, then start the game window
-        String name1 = JOptionPane.showInputDialog(null, "Enter name for Player 1 (X):", "Player 1");
-        String name2 = JOptionPane.showInputDialog(null, "Enter name for Player 2 (O):", "Player 2");
+        // Ask for player names
+        String name1 = JOptionPane.showInputDialog(null, "Enter name for Player 1:", "Player 1");
+        String name2 = JOptionPane.showInputDialog(null, "Enter name for Player 2:", "Player 2");
 
         // Safety: if user cancels the dialog, use default names
         if (name1 == null || name1.trim().isEmpty()) name1 = "Player 1";
         if (name2 == null || name2.trim().isEmpty()) name2 = "Player 2";
 
+        // Symbol Selection
+        Object[] symOptions = {"X", "O"};
+        int symChoice = JOptionPane.showOptionDialog(null, 
+            name1 + ", choose your symbol:", 
+            "Symbol Selection",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, 
+            null, symOptions, symOptions[0]);
+
+        char sym1 = (symChoice == 1) ? 'O' : 'X';
+        char sym2 = (sym1 == 'X') ? 'O' : 'X';
+
+        // Turn Order Selection
+        Object[] turnOptions = {name1, name2, "Random"};
+        int turnChoice = JOptionPane.showOptionDialog(null, 
+            "Who should make the first move?", 
+            "Turn Order",
+            JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, 
+            null, turnOptions, turnOptions[0]);
+
+        char startingSym;
+        if (turnChoice == 0) {
+            startingSym = sym1;
+        } else if (turnChoice == 1) {
+            startingSym = sym2;
+        } else {
+            // Random or closed dialog (default to random)
+            startingSym = (new Random().nextBoolean()) ? sym1 : sym2;
+        }
+
         // Launch the game window
-        new GameWindow(name1, name2);
+        new GameWindow(name1, name2, sym1, sym2, startingSym);
     }
 }
 
 class GameWindow extends JFrame {
 
-    GameWindow(String name1, String name2) {
-        setTitle("Tic Tac Toe  —  " + name1 + "  vs  " + name2);
+    GameWindow(String name1, String name2, char sym1, char sym2, char startingSym) {
+        setTitle("Tic Tac Toe  —  " + name1 + " (" + sym1 + ")  vs  " + name2 + " (" + sym2 + ")");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
         // GamePanel is where all drawing and logic lives
-        GamePanel panel = new GamePanel(name1, name2);
+        GamePanel panel = new GamePanel(name1, name2, sym1, sym2, startingSym);
         add(panel);
         pack(); // auto-size window to fit panel
         setLocationRelativeTo(null); // center on screen
@@ -47,9 +76,12 @@ class GamePanel extends JPanel implements MouseListener {
     static final int BOARD_SIZE  = 450;   // 3x3 grid area (below status bar)
     static final int CELL_SIZE   = 150;   // each cell = 150 x 150 px
 
-    // ── Player names ────────────────────────────────────────
-    String name1;   // plays X
-    String name2;   // plays O
+    // ── Player names and symbols ─────────────────────────────
+    String name1;
+    String name2;
+    char sym1;
+    char sym2;
+    char startingSym;
 
     char[] board;                            // 9 cells: ' ', 'X', or 'O'
     Map<Character, List<Integer>> dict;      // X → [positions], O → [positions]
@@ -72,9 +104,12 @@ class GamePanel extends JPanel implements MouseListener {
 
 
     // ── Constructor ─────────────────────────────────────────
-    GamePanel(String name1, String name2) {
+    GamePanel(String name1, String name2, char sym1, char sym2, char startingSym) {
         this.name1 = name1;
         this.name2 = name2;
+        this.sym1 = sym1;
+        this.sym2 = sym2;
+        this.startingSym = startingSym;
 
         setPreferredSize(new Dimension(WINDOW_SIZE, WINDOW_SIZE + STATUS_BAR));
         addMouseListener(this);   // listen for mouse clicks
@@ -112,15 +147,16 @@ class GamePanel extends JPanel implements MouseListener {
         countX = 0;
         countO = 0;
 
-        // 4. X always goes first
-        currSym = 'X';
+        // 4. Set the starting player
+        currSym = startingSym;
 
         // 5. Game is not over
         gameOver     = false;
         winningCombo = null;
 
         // 6. Status message at top
-        statusMessage = name1 + "'s turn  (X)";
+        String startName = (startingSym == sym1) ? name1 : name2;
+        statusMessage = startName + "'s turn  (" + startingSym + ")";
 
         repaint();   // redraw the panel
     }
@@ -275,7 +311,7 @@ class GamePanel extends JPanel implements MouseListener {
 
         // ── STEP 5: check for winner ─────────────────────────
         int currCount = (currSym == 'X') ? countX : countO;
-        String currName = (currSym == 'X') ? name1 : name2;
+        String currName = (currSym == sym1) ? name1 : name2;
 
         if (currCount >= 3) {
             winningCombo = winningCriteria(dict, currSym);
@@ -298,7 +334,7 @@ class GamePanel extends JPanel implements MouseListener {
 
         // ── STEP 7: switch player ─────────────────────────────
         currSym = (currSym == 'X') ? 'O' : 'X';
-        String nextName = (currSym == 'X') ? name1 : name2;
+        String nextName = (currSym == sym1) ? name1 : name2;
         statusMessage = nextName + "'s turn  (" + currSym + ")";
 
         repaint();   // redraw everything with updated state
